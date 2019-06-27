@@ -69,21 +69,22 @@ void DDA(t_mlxp *s, t_vox *start, t_vox *end, int color)
 
 void mlx_draw_line(t_vox *a, t_vox *b, t_mlx_stuff *stuff)
 {
-    int startx = ((W_XSIZE / 2) - ((stuff->map.col / 2) * stuff->map.tile)) + ((int)a->x * stuff->map.tile) + (a->z * g_rot_offset.x);
-    int starty = ((W_YSIZE / 2) - ((stuff->map.rows / 2) * stuff->map.tile)) + ((int)a->y * stuff->map.tile) + (a->z * g_rot_offset.y); 
-    int endx = ((W_XSIZE / 2) - ((stuff->map.col / 2) * stuff->map.tile)) + ((int)b->x * stuff->map.tile) + (b->z * g_rot_offset.x);
-    int endy = ((W_YSIZE / 2) - ((stuff->map.rows / 2) * stuff->map.tile)) + ((int)b->y * stuff->map.tile) + (b->z * g_rot_offset.y);
-    if ((int)a->z == 0)
-        startx
+    //b->z += (g_rot_offset.y + g_rot_offset.x) * 10;
+    //a->z += (g_rot_offset.y + g_rot_offset.x) * 10;
+
+    int startx = ((W_XSIZE / 2) - ((stuff->map.col / 2) * stuff->map.tile)) + ((int)a->x * stuff->map.tile);// + (a->z * g_rot_offset.x);
+    int starty = ((W_YSIZE / 2) - ((stuff->map.rows / 2) * stuff->map.tile)) + ((int)a->y * stuff->map.tile);// + (a->z * g_rot_offset.y); 
+    int endx = ((W_XSIZE / 2) - ((stuff->map.col / 2) * stuff->map.tile)) + ((int)b->x * stuff->map.tile);// + (b->z * g_rot_offset.x);
+    int endy = ((W_YSIZE / 2) - ((stuff->map.rows / 2) * stuff->map.tile)) + ((int)b->y * stuff->map.tile);// + (b->z * g_rot_offset.y);
     t_vox start;
     t_vox end;
-    start.x = startx;
-    start.y = starty;
+    start.x = (startx + (a->z < 0 || a->z > 0 ? a->z : -1) * g_rot_offset.x);// * ((a->x > (stuff->map.col / 2)) ? g_rot_offset.x : g_rot_offset.x / 2);//cos(g_rot_offset.y + start.y) * start.y + sin(g_rot_offset.x + start.x) * start.x;
+    end.x = (endx + (b->z < 0 || b->z > 0 ? b->z : -1) * g_rot_offset.x);// * ((b->x > (stuff->map.col / 2)) ? g_rot_offset.x : g_rot_offset.x / 2);//cos(g_rot_offset.y + end.y) * end.y + sin(g_rot_offset.x + end.x) * end.x;
+    start.y = (starty + (a->z < 0 || a->z > 0 ? a->z : -1) * g_rot_offset.y);// * ((a->y > (stuff->map.rows / 2)) ? g_rot_offset.y : g_rot_offset.y / 2);
+    end.y = (endy + (b->z < 0 || b->z > 0 ? b->z : -1) * g_rot_offset.y);// * ((b->y > (stuff->map.rows / 2)) ? g_rot_offset.y : g_rot_offset.y / 2);
     start.c = a->c;
-    end.x = endx;
-    end.y = endy;
     end.c = b->c;
-    start.c = ((a->z != 0 && b->z == 0) || (b->z != 0 && a->z == 0)) ? 14358738 : a->c;
+    start.c = (((int)a->z != 0 && (int)b->z == 0) || ((int)b->z != 0 && (int)a->z == 0)) ? 14358738 : a->c;
     DDA(&stuff->s, &start, &end, start.c);
 }
 
@@ -132,7 +133,7 @@ void update_window(void)
 int main(int ac, char **av)
 {
     g_rot_offset.x = 0.2;
-    g_rot_offset.y = 0;
+    g_rot_offset.y = 0.1;
     if (ac == 2)
     {
         if (!create_map(&g_stuff.map, av[1]))

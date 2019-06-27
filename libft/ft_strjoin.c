@@ -38,3 +38,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[i + j] = '\0';
 	return (str);
 }
+
+char	*ft_strjoin_array(char **strs, char *tok)
+{
+	char	*ret;
+	int		i;
+
+	ret = "";
+	i = 0;
+	while (strs[i])
+	{
+		ret = ft_strjoin(ret, strs[i++]);
+		if (strs[i])
+			ret = ft_strjoin(ret, tok);
+	}
+	return (ret);
+}

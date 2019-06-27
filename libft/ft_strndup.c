@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 15:45:13 by calamber          #+#    #+#             */
-/*   Updated: 2018/05/07 16:29:29 by calamber         ###   ########.fr       */
+/*   Created: 2019/03/24 10:16:14 by calamber          #+#    #+#             */
+/*   Updated: 2019/03/24 10:16:29 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strndup(const char *src, size_t len)
 {
-	size_t	i;
+	char	*dst;
+	char	*cdst;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && (i < n - 1))
-	{
-		i++;
-	}
-	return (s1[i] - s2[i]);
+	if (!(dst = ft_strnew(len + 1)))
+		return (0);
+	cdst = dst;
+	len++;
+	while (--len > 0)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (cdst);
 }

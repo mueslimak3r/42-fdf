@@ -17,8 +17,10 @@ int	ft_cntwords(const char *t, char c)
 	int i;
 	int count;
 
-	i = 0;
-	count = 0;
+	i = -1;
+	i += 1;
+	count = -1;
+	count += 1;
 	while (t[i] != '\0')
 	{
 		while (t[i] == c)

@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_readstdin_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 15:45:13 by calamber          #+#    #+#             */
-/*   Updated: 2018/05/07 16:29:29 by calamber         ###   ########.fr       */
+/*   Created: 2019/03/26 02:41:12 by calamber          #+#    #+#             */
+/*   Updated: 2019/03/26 02:42:14 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+char		*ft_readstdin_line(void)
 {
-	size_t	i;
+	char	buf[BUFF_SIZE + 1];
+	char	*tmp;
+	char	*s;
+	int		ret;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && (i < n - 1))
+	s = 0;
+	while ((ret = read(0, buf, BUFF_SIZE)) > 0)
 	{
-		i++;
+		buf[ret] = '\0';
+		tmp = s ? ft_strjoin(s, buf) : ft_strdup(buf);
+		free(s);
+		s = tmp;
+		if (ft_strchr(s, '\n'))
+		{
+			tmp = ft_strndup(s, (ft_strchr(s, '\n') - s));
+			free(s);
+			return (tmp);
+		}
 	}
-	return (s1[i] - s2[i]);
+	return (0);
 }

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alkozma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 15:45:13 by calamber          #+#    #+#             */
-/*   Updated: 2018/05/07 16:29:29 by calamber         ###   ########.fr       */
+/*   Created: 2019/04/23 03:05:57 by alkozma           #+#    #+#             */
+/*   Updated: 2019/04/27 07:14:44 by alkozma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+void	*ft_realloc(void *thing, size_t orig_size, size_t size)
 {
-	size_t	i;
+	void	*ret;
+	int		i;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && (i < n - 1))
-	{
-		i++;
-	}
-	return (s1[i] - s2[i]);
+	i = -1;
+	if (!(ret = (void*)ft_memalloc(size)))
+		return (NULL);
+	if (!thing)
+		return (ret);
+	ft_memcpy(ret, thing, orig_size);
+	free(thing);
+	thing = NULL;
+	return (ret);
 }

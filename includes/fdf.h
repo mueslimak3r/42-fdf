@@ -6,6 +6,7 @@
 # include "keycode_mac.h"
 # include <unistd.h>
 # include <math.h>
+# include <fcntl.h>
 
 # define W_XSIZE ((int)1920)
 # define W_YSIZE ((int)1080)

@@ -15,23 +15,23 @@ int check_map(t_map *map, char *mname)
     int fd;
     char *line;
 
-    line = 0;
+    line = NULL;
     ft_bzero(map, sizeof(t_map));
     if (0 > (fd = open(mname, O_RDONLY)))
         return (errorfunc("error: cannot open map\n", 0));
     if (!(get_next_line(fd, &line)))
         return (errorfunc("error: empty map or cannot read\n", 0));
-    map->col = ft_cntwords(line, ' ') - 1;
+    map->col = ft_cntwords(line, ' ');
     map->rows++;
     free (line);
 	int i = 0;
 	printf("map col: %d\n", map->col);
     while (get_next_line(fd, &line))
     {
-		printf("in column %d : %d\n", i, ft_cntwords(line, ' ') - 1);
-        if (!(map->col == ft_cntwords(line, ' ') - 1))
+		printf("in column %d : %d\n", i, ft_cntwords(line, ' '));
+        if (!(map->col == ft_cntwords(line, ' ')))
 		{
-			printf("map col2: %d\n", ft_cntwords(line, ' ') - 1);
+			printf("map col2: %d\n", ft_cntwords(line, ' '));
             return (errorfunc("error: bad map column format", 0));
 		}
 		map->rows++;

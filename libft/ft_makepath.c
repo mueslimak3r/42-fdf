@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_makepath.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 15:45:13 by calamber          #+#    #+#             */
-/*   Updated: 2018/05/07 16:29:29 by calamber         ###   ########.fr       */
+/*   Created: 2019/03/24 10:24:05 by calamber          #+#    #+#             */
+/*   Updated: 2019/03/24 10:24:07 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+char				*ft_makepath(char *s1, char *s2, char c)
 {
-	size_t	i;
+	char			*str;
+	char			*ret;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && (i < n - 1))
-	{
-		i++;
-	}
-	return (s1[i] - s2[i]);
+	if (!s1 || !s2)
+		return (0);
+	str = (char *)ft_memalloc(sizeof(char) *
+		(ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (str == NULL)
+		return (NULL);
+	ret = str;
+	while (*s1)
+		*(str++) = *(s1++);
+	if (*(s1 - 1) != c)
+		*(str++) = c;
+	while (*s2)
+		*(str++) = *(s2++);
+	return (ret);
 }

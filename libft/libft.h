@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 16:24:04 by calamber          #+#    #+#             */
-/*   Updated: 2018/12/04 22:36:46 by calamber         ###   ########.fr       */
+/*   Updated: 2019/06/27 09:19:15 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "ft_printf/includes/ft_printf.h"
 # include <unistd.h>
-# include <fcntl.h>
 # include <stdlib.h>
 # define BUFF_SIZE 200
 
@@ -88,7 +87,15 @@ int					ft_cntwords(const char *t, char c);
 int					ft_isupper(char c);
 char				*ft_strcase(char *str, char format);
 char				*ft_itoa_base(long long value, int base);
-int					ft_atoi_base(char *str, const int base);
 int					get_next_line(const int fd, char **line);
-int					ft_isspace(unsigned char c);
+void				ft_arraydel(char **array);
+char				*ft_makepath(char *s1, char *s2, char c);
+char				*ft_strndup(const char *src, size_t len);
+int					ft_returnfree(char **ptr, int ret);
+char				*ft_readstdin_line(void);
+int					ft_checkifc(char in, char c);
+void	*ft_realloc(void *thing, size_t orig_size, size_t size);
+char	*ft_strjoin_array(char **strs, char *tok);
+int			ft_atoi_base(char *str, const int base);
+char	ft_isspace(unsigned char c);
 #endif

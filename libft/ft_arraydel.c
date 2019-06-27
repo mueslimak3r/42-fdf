@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_arraydel.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 15:45:13 by calamber          #+#    #+#             */
-/*   Updated: 2018/05/07 16:29:29 by calamber         ###   ########.fr       */
+/*   Created: 2019/03/24 10:17:36 by calamber          #+#    #+#             */
+/*   Updated: 2019/03/24 10:19:23 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_arraydel(char **array)
 {
-	size_t	i;
+	char	**temp;
+	int		i;
 
 	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && (i < n - 1))
-	{
+	temp = array;
+	while (temp[i])
 		i++;
+	while (i > 0 && temp)
+	{
+		ft_strdel(&(*temp));
+		temp++;
+		i--;
 	}
-	return (s1[i] - s2[i]);
+	if (array)
+		free(array);
 }

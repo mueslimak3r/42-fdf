@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoib.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cbrill <cbrill@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/27 13:37:16 by cbrill            #+#    #+#             */
-/*   Updated: 2018/09/27 17:21:30 by cbrill           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
 static int	is_radix(char c, unsigned int base)
@@ -19,6 +7,12 @@ static int	is_radix(char c, unsigned int base)
 	return ((c >= '0' && c <= '9')
 		|| (c >= 'A' && c <= ('A' + (char)base - 10)));
 }
+
+/*
+**	Eats any leading whitespace, then any combination of signs.
+**	If I find a negative sign, you get a negative number. No bullshit.
+**	Eats until a character inappropriate for the given base (or NULL) is found.
+*/
 
 int			ft_atoi_base(char *str, const int base)
 {

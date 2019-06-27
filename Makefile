@@ -12,7 +12,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 CC = gcc
-CFLAGS = -g -O0 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -O0 -Wall -Wextra -Werror #-fsanitize=address
 
 LIBS = $(MLX_LNK) $(FT_LNK) -lm
 

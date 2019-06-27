@@ -13,28 +13,28 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 {
 	if (key == KEY_ESCAPE)
 		mlx_destroy(p);
-	if (key == KEY_D && g_rot_offset.x < 0.5)
+	if (key == KEY_D && g_rot_offset.x < 1)
 	{
 		g_rot_offset.x += 0.2;
 		mlx_clear_window(p, p->win);
 		update_window();
 		mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
 	}
-	if (key == KEY_A && g_rot_offset.x > -0.5)
+	if (key == KEY_A && g_rot_offset.x > -1)
 	{
 		g_rot_offset.x -= 0.2;
 		mlx_clear_window(p, p->win);
 		update_window();
 		mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
 	}
-	if (key == KEY_W && g_rot_offset.y > -0.5)
+	if (key == KEY_W && g_rot_offset.y > -1)
 	{
 		g_rot_offset.y -= 0.2;
 		mlx_clear_window(p, p->win);
 		update_window();
 		mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
 	}
-	if (key == KEY_S && g_rot_offset.y < 0.5)
+	if (key == KEY_S && g_rot_offset.y < 1)
 	{
 		g_rot_offset.y += 0.2;
 		mlx_clear_window(p, p->win);

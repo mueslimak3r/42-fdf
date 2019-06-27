@@ -6,116 +6,86 @@
 /*   By: calamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 19:38:09 by calamber          #+#    #+#             */
-/*   Updated: 2018/07/24 16:57:14 by calamber         ###   ########.fr       */
+/*   Updated: 2019/03/24 10:20:15 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int				strchr_int(const char *s, int c)
+#define RET_IF(cond, ret) if (cond) return (ret)
+
+static void			gnl_loop(int fd, char **line, char buf[BUFF_SIZE], int nl)
 {
-	int			i;
+	ssize_t			rret;
+	char			*tmp1;
+	char			*tmp2;
+	size_t			len;
 
-	i = 0;
-	while (s[i] != (char)c && s[i] != '\0')
-		i++;
-	if (s[i] == (char)c)
-		return (i);
-	return (-1);
-}
-
-int				read_and_combine(const int fd, char **files)
-{
-	char		*temp;
-	char		*old;
-
-	temp = ft_strdup(files[fd]);
-	free(files[fd]);
-	files[fd] = (char*)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1));
-	if (read(fd, files[fd], BUFF_SIZE) == 0)
+	rret = 1;
+	while (!(nl) && rret > 0)
 	{
-		free(files[fd]);
-		files[fd] = ft_strdup(temp);
-		return (0);
+		rret = read(fd, buf, BUFF_SIZE);
+		len = 0;
+		while (len < BUFF_SIZE && buf[len] != '\n')
+			len++;
+		if (buf[len] == '\n')
+			nl = 1;
+		tmp2 = ft_strndup(buf, len);
+		tmp1 = ft_strjoin(*line, tmp2);
+		free(*line);
+		*line = tmp1;
+		free(tmp2);
+		ft_bzero(buf, len + nl);
 	}
-	old = ft_strjoin(temp, files[fd]);
-	free(temp);
-	free(files[fd]);
-	files[fd] = ft_strdup(old);
-	free(old);
-	return (1);
 }
 
-int				takefrombuffer(const int fd, int n, char **files, char **line)
+static size_t		gnl_find_i(char buf[BUFF_SIZE], size_t *i)
 {
-	char		*swap2;
-
-	if (n >= 0)
+	*i = 0;
+	while (*i < BUFF_SIZE && buf[*i] == 0)
+		*i = *i + 1;
+	if (*i == BUFF_SIZE)
 	{
-		*line = (char*)ft_memalloc(sizeof(char) * (n + 1));
-		*line = ft_strncpy(*line, files[fd], n);
-		swap2 = ft_strsub(files[fd], n + 1, (ft_strlen(files[fd]) - n));
-		free(files[fd]);
-		files[fd] = ft_memalloc(ft_strlen(swap2) + 1);
-		files[fd] = ft_strcpy(files[fd], swap2);
-		free(swap2);
+		*i = 0;
 		return (1);
 	}
 	return (0);
 }
 
-int				firstread(const int fd, char **line, char **files)
+static size_t		gnl_find_len(char buf[BUFF_SIZE], size_t i)
 {
-	int			n;
+	size_t len;
 
-	files[fd] = (char*)ft_memalloc(sizeof(char) * BUFF_SIZE + 1);
-	if (read(fd, files[fd], BUFF_SIZE) < 1)
-	{
-		free(files[fd]);
-		if (read(fd, files[fd], 0) < 0)
-			return (-1);
-		return (0);
-	}
-	n = strchr_int(files[fd], 10);
-	if (n >= 0)
-		return (takefrombuffer(fd, n, files, line));
-	else
-	{
-		while (read_and_combine(fd, files) == 1)
-		{
-			n = strchr_int(files[fd], 10);
-			if (takefrombuffer(fd, n, files, line) == 1)
-				return (1);
-		}
-		if ((read_and_combine(fd, files) == 0) && (ft_strlen(files[fd]) > 0))
-			return (takefrombuffer(fd, ft_strlen(files[fd]), files, line));
-	}
-	return (0);
+	len = 0;
+	while (i + len < BUFF_SIZE && buf[i + len] != '\n')
+		len++;
+	return (len);
 }
 
-int				get_next_line(const int fd, char **line)
+int					get_next_line(const int fd, char **line)
 {
-	static char	*files[256];
-	int			n;
+	static char		buf[255][BUFF_SIZE];
+	size_t			i;
+	size_t			len;
+	ssize_t			rret;
+	int				nl;
 
-	if (fd < 0 || fd > 256)
-		return (-1);
-	if (files[fd])
+	RET_IF(fd < 0 || fd >= 255 || !(line) || BUFF_SIZE < 1, -1);
+	rret = BUFF_SIZE;
+	nl = 0;
+	if (gnl_find_i(buf[fd], &i))
 	{
-		n = strchr_int(files[fd], 10);
-		if (takefrombuffer(fd, n, files, line) == 1)
-			return (1);
-		else
-		{
-			while (read_and_combine(fd, files) == 1)
-			{
-				n = strchr_int(files[fd], 10);
-				if (takefrombuffer(fd, n, files, line) == 1)
-					return (1);
-			}
-			if ((read_and_combine(fd, files) == 0) && (ft_strlen(files[fd]) > 0))
-				return (takefrombuffer(fd, ft_strlen(files[fd]), files, line));
-		}
+		RET_IF((rret = read(fd, buf[fd], BUFF_SIZE)) == -1, -1);
+		RET_IF(rret == 0, 0);
 	}
-	return (firstread(fd, line, files));
+	len = gnl_find_len(buf[fd], i);
+	*line = ft_strndup(buf[fd] + i, len);
+	if (buf[fd][i + len] == '\n')
+	{
+		len++;
+		nl = 1;
+	}
+	ft_bzero(buf[fd] + i, len);
+	gnl_loop(fd, line, buf[fd], nl);
+	return (1);
 }

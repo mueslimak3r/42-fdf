@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: calamber <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: calamber <calamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/29 23:01:53 by calamber          #+#    #+#              #
-#    Updated: 2018/08/19 22:50:00 by calamber         ###   ########.fr        #
+#    Updated: 2019/06/27 09:18:21 by calamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 INCLUDE = libft.h
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c \
@@ -26,7 +26,8 @@ ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c ft_putchar.c \
 ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c \
 ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_cntwords.c ft_isupper.c \
-ft_strcase.c ft_itoa_base.c get_next_line.c ft_atoi_base.c ft_isspace.c
+ft_strcase.c ft_itoa_base.c get_next_line.c ft_arraydel.c ft_makepath.c \
+ft_strndup.c ft_returnfree.c ft_readstdin_line.c ft_checkifc.c ft_realloc.c ft_atoi_base.c
 
 OBJ = $(SRC:.c=.o)
 
