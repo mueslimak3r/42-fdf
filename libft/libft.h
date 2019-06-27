@@ -15,6 +15,7 @@
 
 # include "ft_printf/includes/ft_printf.h"
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # define BUFF_SIZE 200
 
@@ -83,10 +84,11 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *n);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-int					ft_wordcnt(const char *t, char c);
+int					ft_cntwords(const char *t, char c);
 int					ft_isupper(char c);
 char				*ft_strcase(char *str, char format);
 char				*ft_itoa_base(long long value, int base);
+int					ft_atoi_base(char *str, const int base);
 int					get_next_line(const int fd, char **line);
-
+int					ft_isspace(unsigned char c);
 #endif

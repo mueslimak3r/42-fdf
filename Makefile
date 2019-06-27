@@ -1,7 +1,7 @@
 NAME = fdf
 
 SRC_DIR = ./src/
-SRC_FILES = main.c
+SRC_FILES = main.c map.c mlx.c window.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/
@@ -12,7 +12,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 CC = gcc
-CFLAGS = -g -O0 -Wall -Wextra -Werror
+CFLAGS = -g -O0 -Wall -Wextra -Werror -fsanitize=address
 
 LIBS = $(MLX_LNK) $(FT_LNK) -lm
 
