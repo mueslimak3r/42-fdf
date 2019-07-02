@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: calamber <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: calamber <calamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/17 11:20:37 by calamber          #+#    #+#              #
-#    Updated: 2019/01/13 23:56:31 by calamber         ###   ########.fr        #
+#    Updated: 2019/07/01 18:29:34 by calamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ) ../*.o
 	@ranlib $(NAME)
-	@make clean
 
 $(OBJ):
 	@$(CC) $(FLAGS) $(INC) -c $(SRC_POS)

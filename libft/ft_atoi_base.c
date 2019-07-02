@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/01 17:40:23 by calamber          #+#    #+#             */
+/*   Updated: 2019/07/01 18:41:27 by calamber         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static int	is_radix(char c, unsigned int base)
@@ -8,12 +20,6 @@ static int	is_radix(char c, unsigned int base)
 		|| (c >= 'A' && c <= ('A' + (char)base - 10)));
 }
 
-/*
-**	Eats any leading whitespace, then any combination of signs.
-**	If I find a negative sign, you get a negative number. No bullshit.
-**	Eats until a character inappropriate for the given base (or NULL) is found.
-*/
-
 int			ft_atoi_base(char *str, const int base)
 {
 	int		value;
@@ -22,9 +28,11 @@ int			ft_atoi_base(char *str, const int base)
 
 	value = 0;
 	sign = 1;
+	if (!str)
+		return (0);
 	if (base <= 1 || base > 36)
 		return (0);
-	while (ft_isspace(*str))
+	while (str && *str && ft_isspace(*str))
 		str++;
 	while (*str == '-' || *str == '+')
 		if (*(str++) == '-')

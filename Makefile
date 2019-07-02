@@ -1,7 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: calamber <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/01 18:22:54 by calamber          #+#    #+#              #
+#    Updated: 2019/07/01 18:22:56 by calamber         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = fdf
 
 SRC_DIR = ./src/
-SRC_FILES = main.c map.c mlx.c window.c
+SRC_FILES = main.c map.c mlx.c draw.c transform.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/
@@ -12,7 +24,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 CC = gcc
-CFLAGS = -g -O0 -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror# -O0 -g -fsanitize=address
 
 LIBS = $(MLX_LNK) $(FT_LNK) -lm
 
