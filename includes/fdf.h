@@ -7,12 +7,12 @@
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
+# include <limits.h>
 
 # define W_XSIZE ((int)1920)
 # define W_YSIZE ((int)1080)
 # define WHITE ((int)16777215)
 # define SCALE ((double)-0.2)
-# define begin_x ((double) / 2)
 
 typedef struct      s_mlxp
 {
