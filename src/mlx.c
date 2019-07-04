@@ -6,27 +6,18 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:47:37 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/01 18:35:33 by calamber         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:15:36 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		mlx_destroy(t_mlxp *p)
-{
-	if (p->win)
-		mlx_destroy_window(p->mlx, p->win);
-	if (p->map)
-		map_destroy(p->map);
-	exit(0);
-}
-
 static int	fdf_key_hook(int key, t_mlxp *p)
 {
 	if (key == KEY_ESCAPE)
 	{
-		mlx_destroy(p);
-		return (0);
+		mlxdel();
+		exit (0);
 	}
 	if (key == KEY_A)
 		g_rot_offset.y += 0.06;
@@ -36,7 +27,6 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 		g_rot_offset.x -= 0.06;
 	if (key == KEY_S)
 		g_rot_offset.x += 0.06;
-	mlx_clear_window(p, p->win);
 	update_window();
 	mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
 	return (0);

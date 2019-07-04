@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:42:11 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/01 17:45:00 by calamber         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:14:48 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ int		errorfunc(char *note, int v)
 	return (v);
 }
 
+int		init()
+{
+	if (!newwindow(&g_stuff.s) || 
+			(g_stuff.image = new_image(g_stuff.s.mlx)) == NULL) 
+	{	// Pass MLX into it's delete function which deletes everything created
+		// in memory
+        mlxdel();
+		return (0);
+    }
+	return (1);
+}
+
 int		main(int ac, char **av)
 {
 	g_rot_offset.x = 0.002;
@@ -26,9 +38,8 @@ int		main(int ac, char **av)
 	{
 		if (!create_map(&g_stuff.map, av[1]))
 			return (errorfunc("error: map gen", 0));
-		if (!newwindow(&g_stuff.s))
+		if (!init())
 		{
-			mlx_destroy(g_stuff.s.mlx);
 			return (errorfunc("error: mlx init\n", 0));
 		}
 		update_window();

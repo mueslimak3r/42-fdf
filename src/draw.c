@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:56:08 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/01 18:20:56 by calamber         ###   ########.fr       */
+/*   Updated: 2019/07/03 22:16:44 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_abs(int n)
 	return ((n > 0) ? n : (n * -1));
 }
 
-void		dda(t_mlxp *s, t_vox *start, t_vox *end, int color)
+void		dda(t_vox *start, t_vox *end, int color)
 {
 	int	dx;
 	int	dy;
@@ -31,21 +31,22 @@ void		dda(t_mlxp *s, t_vox *start, t_vox *end, int color)
 	while (i <= steps)
 	{
 		if (i > 0 && i < steps)
-			mlx_pixel_put(s, s->win, start->x, start->y, color);
+			image_set_pixel(g_stuff.image, start->x, start->y, color);
+			//mlx_pixel_put(s, s->win, start->x, start->y, color);
 		start->x += dx / (float)steps;
 		start->y += dy / (float)steps;
 		i++;
 	}
 }
 
-static void	mlx_draw_line(t_vox *a, t_vox *b, t_mlx_stuff *stuff)
+static void	mlx_draw_line(t_vox *a, t_vox *b)
 {
 	t_vox t_a;
 	t_vox t_b;
 
 	t_a = mlx_project(*a);
 	t_b = mlx_project(*b);
-	dda(&stuff->s, &t_a, &t_b, (((int)a->z != 0 && (int)b->z == 0) ||
+	dda(&t_a, &t_b, (((int)a->z != 0 && (int)b->z == 0) ||
 				((int)b->z != 0 && (int)a->z == 0)) ? 14358738 : a->c);
 }
 
@@ -56,22 +57,22 @@ static void	draw_point(t_vox *v, int x, int y, t_mlx_stuff *stuff)
 	if ((int)v->x + 1 < (stuff->map.col))
 	{
 		b = &(stuff->map.v)[stuff->map.col * y + x + 1];
-		mlx_draw_line(v, b, stuff);
+		mlx_draw_line(v, b);
 	}
 	if ((int)v->x - 1 >= 0)
 	{
 		b = &(stuff->map.v)[stuff->map.col * y + x - 1];
-		mlx_draw_line(v, b, stuff);
+		mlx_draw_line(v, b);
 	}
 	if ((int)v->y + 1 < stuff->map.rows)
 	{
 		b = &(stuff->map.v)[stuff->map.col * (y + 1) + x];
-		mlx_draw_line(v, b, stuff);
+		mlx_draw_line(v, b);
 	}
 	if ((int)v->y - 1 >= 0)
 	{
 		b = &(stuff->map.v)[stuff->map.col * (y - 1) + x];
-		mlx_draw_line(v, b, stuff);
+		mlx_draw_line(v, b);
 	}
 }
 
@@ -82,6 +83,7 @@ void		update_window(void)
 	t_vox	*v;
 
 	y = 0;
+	clear_image(g_stuff.image);
 	while (g_stuff.map.v && y < g_stuff.map.rows)
 	{
 		x = 0;
@@ -93,4 +95,5 @@ void		update_window(void)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(g_stuff.s.mlx, g_stuff.s.win, g_stuff.image->image, 0, 0);
 }

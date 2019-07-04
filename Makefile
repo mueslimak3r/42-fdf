@@ -13,7 +13,7 @@
 NAME = fdf
 
 SRC_DIR = ./src/
-SRC_FILES = main.c map.c mlx.c draw.c transform.c
+SRC_FILES = main.c map.c mlx.c draw.c transform.c image.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 INC_DIR = ./includes/
