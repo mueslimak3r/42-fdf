@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:56:08 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/03 22:16:44 by calamber         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:19:17 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,6 @@ static void	draw_point(t_vox *v, int x, int y, t_mlx_stuff *stuff)
 	if ((int)v->x + 1 < (stuff->map.col))
 	{
 		b = &(stuff->map.v)[stuff->map.col * y + x + 1];
-		mlx_draw_line(v, b);
-	}
-	if ((int)v->x - 1 >= 0)
-	{
-		b = &(stuff->map.v)[stuff->map.col * y + x - 1];
-		mlx_draw_line(v, b);
-	}
-	if ((int)v->y + 1 < stuff->map.rows)
-	{
-		b = &(stuff->map.v)[stuff->map.col * (y + 1) + x];
 		mlx_draw_line(v, b);
 	}
 	if ((int)v->y - 1 >= 0)
