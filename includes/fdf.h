@@ -15,14 +15,18 @@
 
 # include "../libft/libft.h"
 # include "mlx.h"
+# ifdef __linux__
+# include "keycode_linux.h"
+# else
 # include "keycode_mac.h"
+# endif
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
 # include <limits.h>
 
-# define W_XSIZE ((int)1920)
-# define W_YSIZE ((int)1080)
+# define W_XSIZE ((int)1280)
+# define W_YSIZE ((int)720)
 # define WHITE ((int)16777215)
 # define SCALE ((double)-0.02)
 

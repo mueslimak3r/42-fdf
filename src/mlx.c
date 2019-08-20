@@ -19,13 +19,13 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 		mlxdel();
 		exit (0);
 	}
-	if (key == KEY_A)
+	if (key == KEY_LEFT)// || key == KEY_A)
 		g_rot_offset.y += 0.06;
-	if (key == KEY_D)
+	if (key == KEY_RIGHT)// || key == KEY_D)
 		g_rot_offset.y -= 0.06;
-	if (key == KEY_W)
+	if (key == KEY_UP)// || key == KEY_W)
 		g_rot_offset.x -= 0.06;
-	if (key == KEY_S)
+	if (key == KEY_DOWN)// || key == KEY_S)
 		g_rot_offset.x += 0.06;
 	update_window();
 	mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
