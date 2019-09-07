@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:56:08 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/05 18:19:17 by calamber         ###   ########.fr       */
+/*   Updated: 2019/09/07 05:36:24 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static void	mlx_draw_line(t_vox *a, t_vox *b)
 
 	t_a = mlx_project(*a);
 	t_b = mlx_project(*b);
-	dda(&t_a, &t_b, (((int)a->z != 0 && (int)b->z == 0) ||
-				((int)b->z != 0 && (int)a->z == 0)) ? 14358738 : a->c);
+	dda(&t_a, &t_b, (a->z != b->z) ? 14358738 - ((fmax(a->z, b->z) - fmin(a->z, b->z)) * 150) : a->c);
 }
 
 static void	draw_point(t_vox *v, int x, int y, t_mlx_stuff *stuff)

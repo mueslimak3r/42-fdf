@@ -6,7 +6,7 @@
 /*   By: calamber <calamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:47:37 by calamber          #+#    #+#             */
-/*   Updated: 2019/07/03 22:15:36 by calamber         ###   ########.fr       */
+/*   Updated: 2019/09/07 05:35:04 by calamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 		g_rot_offset.x -= 0.06;
 	if (key == KEY_DOWN)// || key == KEY_S)
 		g_rot_offset.x += 0.06;
+	if (key == KEY_F)// || key == KEY_S)
+		g_stuff.map.scale *= 1.5;
+	if (key == KEY_G)// || key == KEY_S)
+		g_stuff.map.scale *= 0.5;
 	update_window();
 	mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
 	return (0);
