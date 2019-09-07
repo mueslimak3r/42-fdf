@@ -28,9 +28,9 @@ static int	fdf_key_hook(int key, t_mlxp *p)
 	if (key == KEY_DOWN)// || key == KEY_S)
 		g_rot_offset.x += 0.06;
 	if (key == KEY_F)// || key == KEY_S)
-		g_stuff.map.scale *= 1.5;
+		g_stuff.map.tile *= 1.5;
 	if (key == KEY_G)// || key == KEY_S)
-		g_stuff.map.scale *= 0.5;
+		g_stuff.map.tile *= 0.5;
 	update_window();
 	mlx_string_put(p->mlx, p->win, 10, W_YSIZE - 30, WHITE, "ESC: close");
 	return (0);

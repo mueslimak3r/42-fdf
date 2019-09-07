@@ -98,7 +98,7 @@ int			create_map(t_map *map, char *mname)
 	while (i < map->rows)
 	{
 		get_next_line(fd, &line);
-		ft_printf("%s\n", line);
+		//ft_printf("%s\n", line);
 		splint(map, i, ft_strsplit(line, ' '));
 		free(line);
 		i++;
